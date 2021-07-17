@@ -28,10 +28,11 @@
   tasks:
     - name: Create and start redmine
       community.docker.docker_container:
+        container_default_behavior: no_defaults
         name: app
         image: redmine:4.2.1
         state: started
-        restart: yes
+        restart: true
         ports:
           - '{{ http_port }}:3000'
         env:
