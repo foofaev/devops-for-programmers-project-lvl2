@@ -13,13 +13,13 @@
   roles:
     - geerlingguy.pip
 
-- name: 'Ensure port {{ http_port }} is open'
+- name: 'Ensure port 8080 is open'
   hosts: webservers
   tasks:
-    - name: 'UFW - Allow HTTP on port {{ http_port }}'
+    - name: 'UFW - Allow HTTP on port 8080'
       ufw:
         rule: allow
-        port: '{{ http_port }}'
+        port: '8080'
         proto: tcp
 
 - name: Deploy app
@@ -34,7 +34,7 @@
         state: started
         restart: true
         ports:
-          - '{{ http_port }}:3000'
+          - '8080:3000'
         env:
           REDMINE_DB_POSTGRES: '{{ pg_host }}'
           REDMINE_DB_PORT: '{{ pg_port }}'
@@ -52,7 +52,7 @@
         init_config:
         instances:
           - name: Application health check status
-            url: 'http://localhost:{{ http_port }}'
+            url: 'http://localhost:8080'
             timeout: 5
   tasks:
     - name: Install and run datadog agent
