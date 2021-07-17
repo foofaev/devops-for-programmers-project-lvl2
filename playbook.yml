@@ -1,5 +1,5 @@
 ---
-- name: Prepare machine
+- name: Install prerequisites
   hosts: all
   pre_tasks:
     - name: Run apt update cache and apt upgrade
@@ -12,6 +12,9 @@
       - name: docker
   roles:
     - geerlingguy.pip
+
+- name: 'Ensure port {{ http_port }} is open'
+  hosts: webservers
   tasks:
     - name: 'UFW - Allow HTTP on port {{ http_port }}'
       ufw:
@@ -39,7 +42,7 @@
           REDMINE_DB_DATABASE: '{{ pg_database }}'
           REDMINE_SECRET_KEY_BASE: 'true'
 
-- name: Install and run Datadog agent
+- name: Setup monitoring
   hosts: webservers
   vars:
     datadog_site: 'datadoghq.eu'

@@ -4,7 +4,7 @@
 ### Running site:
 https://weryha.xyz/
 
-### To install prerequisites to your local machine run:
+### To install prerequisites on your local machine run:
 ```sh
   make setup
 ```
