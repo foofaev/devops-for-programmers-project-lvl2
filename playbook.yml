@@ -7,9 +7,6 @@
         upgrade: 'yes'
         update_cache: true
         cache_valid_time: 3600
-  vars:
-    pip_install_packages:
-      - name: docker
   roles:
     - geerlingguy.pip
 
@@ -45,15 +42,6 @@
 
 - name: Setup monitoring
   hosts: webservers
-  vars:
-    datadog_site: 'datadoghq.eu'
-    datadog_checks:
-      http_check:
-        init_config:
-        instances:
-          - name: Application health check status
-            url: 'http://localhost:8080'
-            timeout: 5
   tasks:
     - name: Install and run datadog agent
       include_role:
