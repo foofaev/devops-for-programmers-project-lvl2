@@ -1,6 +1,5 @@
 ---
 - name: Prepare host machine
-  gather_facts: 'no'
   hosts: all
   tasks:
     - name: Run apt update cache and apt upgrade
@@ -19,7 +18,6 @@
         dest: /root/.env
 
 - name: Deploy app
-  gather_facts: 'no'
   hosts: all
   become: true
   tasks:
