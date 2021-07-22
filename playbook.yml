@@ -1,26 +1,15 @@
 ---
 - name: Prepare host machine
   hosts: all
+  roles:
+    - name: geerlingguy.pip
+    - name: datadog.datadog
   tasks:
-    - name: Run apt update cache and apt upgrade
-      apt:
-        upgrade: 'yes'
-        update_cache: true
-        cache_valid_time: 3600
-
-    - name: Install pip
-      include_role:
-        name: geerlingguy.pip
-
     - name: Create .env file with secrets
       ansible.builtin.template:
         src: ./templates/environment.j2
         dest: /root/.env
 
-- name: Deploy app
-  hosts: all
-  become: true
-  tasks:
     - name: Create and start redmine
       community.docker.docker_container:
         container_default_behavior: no_defaults
@@ -31,10 +20,3 @@
         published_ports:
           - '80:3000'
         env_file: /root/.env
-
-- name: Setup monitoring
-  hosts: webservers
-  tasks:
-    - name: Install and run datadog agent
-      include_role:
-        name: datadog.datadog

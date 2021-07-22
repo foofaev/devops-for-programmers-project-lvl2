@@ -1,0 +1,15 @@
+---
+pg_host: '{{ vault_pg_host }}'
+pg_port: '{{ vault_pg_port }}'
+pg_user: '{{ vault_pg_user }}'
+pg_password: '{{ vault_pg_password }}'
+pg_database: '{{ vault_pg_database }}'
+datadog_api_key: '{{ vault_datadog_api_key }}'
+datadog_site: 'datadoghq.eu'
+datadog_checks:
+  http_check:
+    init_config:
+    instances:
+      - name: Application health check status
+        url: 'http://localhost:80'
+        timeout: 5
