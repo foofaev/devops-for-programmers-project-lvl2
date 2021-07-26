@@ -1,6 +1,4 @@
 ---
-port: '80'
-env_file_path: './.env'
 pg_host: '{{ vault_pg_host }}'
 pg_port: '{{ vault_pg_port }}'
 pg_user: '{{ vault_pg_user }}'
