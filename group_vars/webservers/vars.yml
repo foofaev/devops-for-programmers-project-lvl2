@@ -1,4 +1,6 @@
 ---
+port: '80'
+env_file_path: './.env'
 pg_host: '{{ vault_pg_host }}'
 pg_port: '{{ vault_pg_port }}'
 pg_user: '{{ vault_pg_user }}'
@@ -11,5 +13,5 @@ datadog_checks:
     init_config:
     instances:
       - name: Application health check status
-        url: 'http://localhost:80'
+        url: 'http://localhost:{{ port }}'
         timeout: 5

@@ -4,10 +4,12 @@
 ### Deployed app:
 https://weryha.xyz/
 
-### To install prerequisites on your local machine run:
-```sh
-  make setup
-```
+### Prerequisites:
+* Install Ansible > 4
+* Install Make
+* Get secret `vault_password` file and place it in repo root.
+* Install dependencies with `make setup`
+
 ### To deploy an app run:
 ```sh
   make deploy

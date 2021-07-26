@@ -1,6 +1,10 @@
 ---
 - name: Prepare host machine
   hosts: all
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: 'yes'
   roles:
     - name: geerlingguy.pip
     - name: datadog.datadog
@@ -8,7 +12,7 @@
     - name: Create .env file with secrets
       ansible.builtin.template:
         src: ./templates/environment.j2
-        dest: /root/.env
+        dest: '{{ env_file_path }}'
 
     - name: Create and start redmine
       community.docker.docker_container:
@@ -18,5 +22,5 @@
         state: started
         restart: true
         published_ports:
-          - '80:3000'
-        env_file: /root/.env
+          - '{{ port }}:3000'
+        env_file: '{{ env_file_path }}'
